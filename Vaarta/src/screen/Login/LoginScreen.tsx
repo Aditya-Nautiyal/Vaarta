@@ -9,6 +9,7 @@ import {
   Platform,
   ScrollView,
   Alert,
+  TouchableOpacity,
 } from 'react-native';
 import CustomButton from '../../component/CustomButton';
 import SpaceFiller from '../../component/SpaceFiller';
@@ -17,31 +18,27 @@ import auth from '@react-native-firebase/auth';
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLogin, setIsLogin] = useState(true); // true = login mode, false = sign-up mode
 
-  const handleLoginPress = async () => {
+  const handleAuthPress = async () => {
     if (!email || !password) {
       Alert.alert('Error', 'Please enter email and password');
       return;
     }
 
     try {
-      // Try logging in
-      await auth().signInWithEmailAndPassword(email, password);
-      console.log('Login successful');
+      if (isLogin) {
+        // Login
+        await auth().signInWithEmailAndPassword(email, password);
+        console.log('Login successful');
+      } else {
+        // Sign up
+        await auth().createUserWithEmailAndPassword(email, password);
+        console.log('Account created & logged in');
+      }
       navigation.navigate('Home');
     } catch (error) {
-      if (error?.code === 'auth/user-not-found') {
-        // If user doesn't exist, sign them up
-        try {
-          await auth().createUserWithEmailAndPassword(email, password);
-          console.log('Account created & logged in');
-          navigation.navigate('Home');
-        } catch (signupError) {
-          Alert.alert('Signup Error', signupError?.message);
-        }
-      } else {
-        Alert.alert('Login Error', error?.message);
-      }
+      Alert.alert(isLogin ? 'Login Error' : 'Signup Error', error?.message);
     }
   };
 
@@ -57,7 +54,7 @@ const LoginScreen = ({ navigation }) => {
         >
           <View style={styles.topSection} />
           <View style={styles.loginSignUpContainer}>
-            <Text style={styles.title}>Login</Text>
+            <Text style={styles.title}>{isLogin ? 'Login' : 'Sign Up'}</Text>
             <SpaceFiller margin={24} />
             <View style={styles.inputTextContainer}>
               <Text style={styles.inputTextTitle}>Email</Text>
@@ -67,6 +64,7 @@ const LoginScreen = ({ navigation }) => {
                 onChangeText={setEmail}
                 placeholder="Ex: abc@gmail.com"
                 autoCapitalize="none"
+                value={email}
               />
             </View>
             <SpaceFiller />
@@ -78,10 +76,22 @@ const LoginScreen = ({ navigation }) => {
                 style={styles.inputText}
                 onChangeText={setPassword}
                 placeholder="Ex: Login@12345"
+                value={password}
               />
             </View>
             <SpaceFiller margin={24} />
-            <CustomButton title="Login" onPress={handleLoginPress} />
+            <CustomButton
+              title={isLogin ? 'Login' : 'Sign Up'}
+              onPress={handleAuthPress}
+            />
+            <SpaceFiller margin={16} />
+            <TouchableOpacity onPress={() => setIsLogin(!isLogin)}>
+              <Text style={{ color: 'blue', fontFamily: 'monospace' }}>
+                {isLogin
+                  ? "Don't have an account? Sign Up"
+                  : 'Already have an account? Login'}
+              </Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -91,18 +101,16 @@ const LoginScreen = ({ navigation }) => {
 
 export default LoginScreen;
 
-// styles stay the same...
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'black',
   },
   topSection: {
-    flex: 0.4, // black top part stays same height
+    flex: 0.4,
   },
   loginSignUpContainer: {
-    flex: 0.6, // white card takes rest of screen
+    flex: 0.6,
     backgroundColor: '#f0f0f0',
     paddingHorizontal: 20,
     paddingVertical: 20,
