@@ -1,34 +1,75 @@
-# Gradle files
-.gradle/
-build/
+# Node.js dependencies (for the root repo)
+node_modules/
+npm-debug.log
+yarn-error.log
 
-# Local configuration file (sdk path, etc)
-local.properties
+# React Native build files (for the root repo)
+android/build/
+ios/build/
 
-# Log/OS Files
+# Xcode files (if using Xcode)
+*.xcodeproj/
+*.xcworkspace/
+*.xcuserstate
+*.swp
+
+# IDE-specific files
+.vscode/
+.idea/
+
+# macOS-specific files
+.DS_Store
+
+# Logs
 *.log
 
-# Android Studio generated files and folders
-captures/
-.externalNativeBuild/
-.cxx/
-*.aab
-*.apk
-output-metadata.json
+# npm
+package-lock.json
+yarn.lock
 
-# IntelliJ
-*.iml
-.idea/
-misc.xml
-deploymentTargetDropDown.xml
-render.experimental.xml
+# React Native Debugger
+.react-native-debugger/
 
-# Keystore files
-*.jks
-*.keystore
+# Expo files (if using Expo)
+.expo/
+.expo-shared/
 
-# Google Services (e.g. APIs or Firebase)
-google-services.json
+# Other build directories and files
+/dist/
+*.bak
+*.tmp
 
-# Android Profiling
-*.hprof
+# Vaarta folder specific
+Vaarta/node_modules/
+Vaarta/ios/build/
+Vaarta/android/build/
+Vaarta/*.log
+Vaarta/*.swp
+Vaarta/.DS_Store
+Vaarta/.bundle/
+Vaarta/gradle-wrapper.jar
+Vaarta/gradle-wrapper.properties
+Vaarta/.eslintignore
+Vaarta/.prettierrc.js
+Vaarta/.gitignore
+Vaarta/.watchmanconfig
+Vaarta/jest.config.js
+Vaarta/metro.config.js
+Vaarta/package.json
+Vaarta/.babel.config.js
+Vaarta/Gemfile
+Vaarta/Gemfile.lock
+Vaarta/index.js
+Vaarta/Podfile
+Vaarta/Podfile.lock
+Vaarta/AndroidManifest.xml
+Vaarta/MainActivity.kt
+Vaarta/MainApplication.kt
+Vaarta/strings.xml
+Vaarta/styles.xml
+Vaarta/gradle.properties
+Vaarta/proguard-rules.pro
+
+# Ignore all files in android and ios folders
+Vaarta/android/*
+Vaarta/ios/*
