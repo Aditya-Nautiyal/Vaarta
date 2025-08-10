@@ -1,45 +1,34 @@
-# macOS
-.DS_Store
-
-# Node
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-package-lock.json
-yarn.lock
-
-# React Native / Expo
-.expo/
-.expo-shared/
-*.log
-*.tmp
-*.temp
-*.swp
-
-# Metro / React Native cache
-.cache/
-bundles/
-dist/
-
-# Ignore native Android and iOS code
-Vaarta/android/
-Vaarta/ios/
-
-# Build / output directories
+# Gradle files
+.gradle/
 build/
-Vaarta/build/
-Vaarta/out/
-Vaarta/coverage/
 
-# OS / IDE
-.idea/
-.vscode/
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Log/OS Files
+*.log
+
+# Android Studio generated files and folders
+captures/
+.externalNativeBuild/
+.cxx/
+*.aab
+*.apk
+output-metadata.json
+
+# IntelliJ
 *.iml
+.idea/
+misc.xml
+deploymentTargetDropDown.xml
+render.experimental.xml
 
-# Watchman
-.watchmanconfig
+# Keystore files
+*.jks
+*.keystore
 
-# Environment files
-.env
-.env.*
+# Google Services (e.g. APIs or Firebase)
+google-services.json
+
+# Android Profiling
+*.hprof
